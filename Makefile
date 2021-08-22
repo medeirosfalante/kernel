@@ -1,6 +1,6 @@
 run:
-	nasm boot_sect.asm -f bin -o boot_sect.bin && qemu-system-x86_64 boot_sect.bin
+	nasm kernel.asm -f bin -o kernel.bin && qemu-system-x86_64 kernel.bin
 build:
-	nasm boot_sect.asm -f bin -o boot_sect.bin
+	nasm kernel.asm -f bin -o kernel.bin
 log-hex:
-	od -t x1 -A n boot_sect.bin > boot_sect.hex
+	od -t x1 -A n kernel.bin > kernel.hex
