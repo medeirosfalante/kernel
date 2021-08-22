@@ -1,29 +1,35 @@
-BITS 16
+[bits 16]
+[org 0x7c00]
+
 
 start:
-	mov ax, 07C0h	
-	add ax, 288
-	mov ss, ax
-	mov sp, 4096
-	mov ax, 07C0h
-	mov ds, ax
-	mov si, text_string	
+	xor ax,ax
+	mov ds,ax
+	mov es,ax
+	mov bx,0x8000
+	
+
+	mov si, hello_world
 	call print_string
 
-	jmp $
 
-	text_string db 'Base kernel!', 0
+	hello_world db 'hello world',13,0
 
-print_string:			
-	mov ah, 0Eh
 
-.repeat:
-	lodsb			
-	cmp al, 0
-	je .done		
-	int 10h
-	jmp .repeat
-.done:
+
+print_string:
+	mov ah,0x0E
+
+
+.repeat_next_char:
+	lodsb
+	cmp al,0
+	je .done_print
+	int 0x10
+	jmp .repeat_next_char
+
+
+.done_print:
 	ret
-	times 510-($-$$) db 0
+	times(510-($-$$)) db 0x00
 	dw 0xAA55
