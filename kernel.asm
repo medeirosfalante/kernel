@@ -8,6 +8,18 @@ start:
 	mov es,ax
 	mov bx,0x8000
 	
+	mov ax,0x13
+	int 0x10
+
+	mov ah,02
+	int 0x10
+
+
+	mov ah,0x02
+	mov bh,0x00
+	mov dh,0x06
+	mov dl,0x09
+	int 0x10
 
 	mov si, hello_world
 	call print_string
